@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:word_me/screens/home.dart';
 void main() {
   runApp(MyApp());
 }
@@ -15,7 +15,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'heb word check'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+      }
     );
   }
 }
