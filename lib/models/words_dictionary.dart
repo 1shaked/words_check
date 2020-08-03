@@ -30,7 +30,7 @@ class WordsDictionary extends ChangeNotifier {
 
   int get max_page => (_dictionary.length / _maxItems).round(); 
   int get uses => _uses;
-
+  int get page => _page;
   List get dictionary => _dictionary;
 
   List get current_dictionary {
@@ -43,7 +43,10 @@ class WordsDictionary extends ChangeNotifier {
     _uses = n;
     notifyListeners();
   }
-
+  set page(int p) {
+    _page = p;
+    notifyListeners();
+  }
   increments () {
     uses += 1;
   }
