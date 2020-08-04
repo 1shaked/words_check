@@ -50,5 +50,9 @@ class WordsDictionary extends ChangeNotifier {
   increments () {
     uses += 1;
   }
+
+  changePagaNumber (n) {
+    page += n; 
+  }
   
 }
