@@ -10,12 +10,12 @@ class IncrementUses extends StatefulWidget {
 class _IncrementUsesState extends State<IncrementUses> {
   @override
   Widget build(BuildContext context) {
-    WordsDictionary words_dictionary = Provider.of<WordsDictionary>(context);
+    WordsDictionary wordsDictionary = Provider.of<WordsDictionary>(context);
 
     return Container(
       child: FlatButton(onPressed: () {
         print('click');
-        words_dictionary.increments();
+        wordsDictionary.increments();
       }, child: Text('ADD ONE'))
     );
   }
