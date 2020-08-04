@@ -12,7 +12,7 @@ class _UsesState extends State<Uses> {
   Widget build(BuildContext context) {
     WordsDictionary words_dictionary = Provider.of<WordsDictionary>(context);
     return Container(
-      child: Text(words_dictionary.uses.toString() ??  'no uses'),  
+      child: Text(words_dictionary.page.toString() ??  'no page'),  
     );
   }
 }
