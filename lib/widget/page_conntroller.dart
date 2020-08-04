@@ -10,10 +10,12 @@ class PageConntroller extends StatefulWidget {
 }
 
 class _PageConntrollerState extends State<PageConntroller> {
+  String error;
   @override
   Widget build(BuildContext context) {
     WordsDictionary wordsDictionary = Provider.of<WordsDictionary>(context);
-    
+    final _formKey = GlobalKey<FormState>();
+
     return Container(
       child: Column(
         children: <Widget>[
@@ -32,23 +34,38 @@ class _PageConntrollerState extends State<PageConntroller> {
               Text('The max page is ${wordsDictionary.max_page}')
             ],
           ),
-          Row(
-            children: <Widget>[
-              SizedBox(
-                width: 280,
-                height:90,
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    WhitelistingTextInputFormatter.digitsOnly
-                  ],
-                  decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Enter a page 0 to ${wordsDictionary.max_page}',
-                ),
-                ),
-              )
-            ]
+          Form(
+              key: _formKey,
+              child: Row(
+              children: <Widget>[
+                SizedBox(
+                  width: 280,
+                  height: 50,
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter.digitsOnly
+                    ],
+                    onFieldSubmitted: (e) {
+                      if (_formKey.currentState.validate()) {
+                        wordsDictionary.page =  int.parse(e);
+                      }
+                    },
+                    validator: (value) {
+                      try {
+                        return  int.parse(value) < wordsDictionary.max_page ? null : 'pls provide a number in the range of 0 - ${wordsDictionary.max_page}';
+                      } catch (err) {
+                        return 'no value here';
+                      }
+                    },
+                    decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter a page 0 to ${wordsDictionary.max_page}',
+                  ),
+                  ),
+                )
+              ]
+            ),
           ),
         ],
       )  

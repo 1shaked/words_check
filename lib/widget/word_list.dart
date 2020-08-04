@@ -15,7 +15,8 @@ class _WordListState extends State<WordList> {
     if (wordsDictionary.current_dictionary  != null) {
       return Container(
         child: ListView(
-          children: wordsDictionary.current_dictionary.map((w) => WordListItem(w)).toList()
+          children: wordsDictionary.current_dictionary.map((w) => WordListItem(w)).toList(),
+          shrinkWrap: true
         ),
       );
     } else {
