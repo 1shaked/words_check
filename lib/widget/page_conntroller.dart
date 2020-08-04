@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:word_me/models/words_dictionary.dart';
+import 'package:flutter/services.dart';
+
 
 class PageConntroller extends StatefulWidget {
   @override
@@ -11,20 +13,10 @@ class _PageConntrollerState extends State<PageConntroller> {
   @override
   Widget build(BuildContext context) {
     WordsDictionary wordsDictionary = Provider.of<WordsDictionary>(context);
-
+    
     return Container(
       child: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              // TextField(
-              //   decoration: InputDecoration(
-              //     border: InputBorder.none,
-              //     hintText: 'Enter a search term'
-              //   ),
-              // )
-            ]
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -39,6 +31,24 @@ class _PageConntrollerState extends State<PageConntroller> {
               }),
               Text('The max page is ${wordsDictionary.max_page}')
             ],
+          ),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: 280,
+                height:90,
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    WhitelistingTextInputFormatter.digitsOnly
+                  ],
+                  decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Enter a page 0 to ${wordsDictionary.max_page}',
+                ),
+                ),
+              )
+            ]
           ),
         ],
       )  
