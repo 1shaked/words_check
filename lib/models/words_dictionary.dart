@@ -41,7 +41,7 @@ class WordsDictionary extends ChangeNotifier {
     notifyListeners();
   }
 
-  int get max_page => (_dictionary.length / _maxItems).round(); 
+  int get maxPage => (_dictionary.length / _maxItems).round(); 
   int get uses => _uses;
   int get page => _page;
   List get dictionary => _dictionary;

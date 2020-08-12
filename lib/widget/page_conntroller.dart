@@ -31,7 +31,7 @@ class _PageConntrollerState extends State<PageConntroller> {
                 print('minues');
                 wordsDictionary.changePagaNumber(-1);
               }),
-              Text('The max page is ${wordsDictionary.max_page}')
+              Text('The max page is ${wordsDictionary.maxPage}')
             ],
           ),
           Form(
@@ -53,14 +53,14 @@ class _PageConntrollerState extends State<PageConntroller> {
                     },
                     validator: (value) {
                       try {
-                        return  int.parse(value) < wordsDictionary.max_page ? null : 'pls provide a number in the range of 0 - ${wordsDictionary.max_page}';
+                        return  int.parse(value) < wordsDictionary.maxPage ? null : 'pls provide a number in the range of 0 - ${wordsDictionary.maxPage}';
                       } catch (err) {
                         return 'no value here';
                       }
                     },
                     decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Enter a page 0 to ${wordsDictionary.max_page}',
+                    hintText: 'Enter a page 0 to ${wordsDictionary.maxPage}',
                   ),
                   ),
                 )
