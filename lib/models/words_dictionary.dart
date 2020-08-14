@@ -46,7 +46,7 @@ class WordsDictionary extends ChangeNotifier {
   int get page => _page;
   List get dictionary => _dictionary;
 
-  List get current_dictionary {
+  List get currentDictionary {
     int start = _page * _maxItems;
     int end   = start + _maxItems;
     return this._dictionary.sublist(start, end);
