@@ -12,10 +12,14 @@ class _WordListState extends State<WordList> {
   @override
   Widget build(BuildContext context) {
     WordsDictionary wordsDictionary = Provider.of<WordsDictionary>(context);
+    
     if (wordsDictionary.currentDictionary  != null) {
       return Container(
         child: ListView(
-          children: wordsDictionary.currentDictionary.map((w) => WordListItem(w)).toList(),
+          children: wordsDictionary.currentDictionary.asMap().entries.map((entry) {
+            int idx = entry.key;
+            return WordListItem(entry.value, idx);
+          }).toList(),
           shrinkWrap: true
         ),
       );
