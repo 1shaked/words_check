@@ -8,6 +8,10 @@ class HebWord {
   List<String> get translationsList => splitText(translation);
   List<String> get exampleList => splitText(example);
   
+  @override
+  String toString () {
+    return super.toString() + ' ${this.word} ${this.score}';
+  }
 
   List<String> splitText (String text) {
     if (!text.contains('.')) {
