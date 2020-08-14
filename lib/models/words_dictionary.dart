@@ -61,11 +61,17 @@ class WordsDictionary extends ChangeNotifier {
     notifyListeners();
   }
   void increments () {
-    uses += 1;
+    this.uses += 1;
   }
 
   void changePagaNumber (int n) {
-    page += n; 
+    this.page += n; 
+  }
+
+  void changeScore (int index, int score) {
+    // this is -1 for word you for sure now
+    this._dictionary[index].score = score;
+    notifyListeners();
   }
   
 }
