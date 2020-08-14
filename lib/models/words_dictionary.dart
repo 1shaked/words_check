@@ -60,11 +60,11 @@ class WordsDictionary extends ChangeNotifier {
     _page = p;
     notifyListeners();
   }
-  increments () {
+  void increments () {
     uses += 1;
   }
 
-  changePagaNumber (n) {
+  void changePagaNumber (int n) {
     page += n; 
   }
   
