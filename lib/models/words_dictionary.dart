@@ -55,6 +55,14 @@ class WordsDictionary extends ChangeNotifier {
     return this._dictionary.sublist(start, end);
   }
 
+  List get unknownWords {
+    return this._dictionary.where((element) => element.score != -1).toList();
+  }
+
+  List get knownWords {
+    return this._dictionary.where((element) => element.score == -1).toList();
+  }
+
   set uses(int n) {
     _uses = n;
     notifyListeners();
