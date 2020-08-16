@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:word_me/models/route_generator.dart';
 import 'package:word_me/screens/all_words.dart';
 import 'package:word_me/screens/home.dart';
 import 'package:word_me/screens/known.dart';
@@ -13,18 +14,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        initialRoute: '/',
-        routes: {
-          '/': (context) => HomePage(),
-          '/all_words': (context) => AllWords(),
-          '/known': (context) => KnownWords(),
-          'unknown': (context) => UnknownWords()
-        });
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      initialRoute: '/',
+      onGenerateRoute: RouteGenerator.generateRoute,
+    );
   }
 }
 

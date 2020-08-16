@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:word_me/models/words_dictionary.dart';
+import 'package:word_me/widget/nav_drawer.dart';
 import 'package:word_me/widget/page_conntroller.dart';
 import 'package:word_me/widget/word_list.dart';
 
@@ -18,20 +19,7 @@ class _HomePageState extends State<HomePage> {
       ],
       child: Scaffold(
         appBar: AppBar(title: Text('home page!')),
-        drawer: Drawer(
-          child: ListView(
-            children: <Widget>[
-              ListTile(
-                title: Text("Ttem 1"),
-                trailing: Icon(Icons.arrow_forward),
-              ),
-              ListTile(
-                title: Text("Item 2"),
-                trailing: Icon(Icons.arrow_forward),
-              ),
-            ],
-          ),
-        ),
+        drawer: NavDrawer(),
         body: Container(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

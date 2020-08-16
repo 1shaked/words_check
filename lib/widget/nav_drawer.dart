@@ -10,12 +10,29 @@ class NavDrawer extends StatelessWidget {
             title: Text("Home page"),
             trailing: Icon(Icons.arrow_forward),
             onTap: () {
-              // Navigator.push
+              Navigator.of(context).pushNamed('/');
             },
           ),
           ListTile(
-            title: Text("Item 2"),
+            title: Text("known words"),
             trailing: Icon(Icons.arrow_forward),
+            onTap: () {
+              Navigator.of(context).pushNamed('/known');
+            },
+          ),
+          ListTile(
+            title: Text("unknown words"),
+            trailing: Icon(Icons.arrow_forward),
+            onTap: () {
+              Navigator.of(context).pushNamed('/unknown');
+            },
+          ),
+          ListTile(
+            title: Text("all word dictionary"),
+            trailing: Icon(Icons.arrow_forward),
+            onTap: () {
+              Navigator.of(context).pushNamed('/all_words');
+            },
           ),
         ],
       ),
