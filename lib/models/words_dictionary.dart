@@ -11,44 +11,47 @@ class WordsDictionary extends ChangeNotifier {
   int _page = 0;
   int _maxItems = 10;
   String fileName = 'track.json';
+  File jsonFile;
 
   WordsDictionary() {
-    
     loadData();
   }
 
   loadData() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    File jsonFile = new File(directory.path + "/" + this.fileName);
+    this.jsonFile = new File(directory.path + "/" + this.fileName);
     bool fileExists = jsonFile.existsSync();
-    String data = fileExists ? await jsonFile.readAsString() :  await rootBundle.loadString('assets/heb_list.json');
+    String data = fileExists
+        ? await jsonFile.readAsString()
+        : await rootBundle.loadString('assets/heb_list.json');
     loadDictionary(data);
     if (!fileExists) {
       jsonFile.writeAsString(data);
     }
   }
-  loadDictionary (String data) async {
-    
+
+  loadDictionary(String data) async {
     this._dictionary ??= [];
     var jsonResult = json.decode(data);
     var res = jsonResult['dictionary'];
     for (final wordValue in res) {
       print(wordValue['word']);
-      HebWord word = HebWord(wordValue['word'],wordValue['translation'] ,wordValue['example'],wordValue['score']);
+      HebWord word = HebWord(wordValue['word'], wordValue['translation'],
+          wordValue['example'], wordValue['score']);
       this._dictionary.add(word);
     }
     print(dictionary);
     notifyListeners();
   }
 
-  int get maxPage => (_dictionary.length / _maxItems).round(); 
+  int get maxPage => (_dictionary.length / _maxItems).round();
   int get uses => _uses;
   int get page => _page;
   List get dictionary => _dictionary;
 
   List get currentDictionary {
     int start = _page * _maxItems;
-    int end   = start + _maxItems;
+    int end = start + _maxItems;
     return this._dictionary.sublist(start, end);
   }
 
@@ -56,22 +59,25 @@ class WordsDictionary extends ChangeNotifier {
     _uses = n;
     notifyListeners();
   }
+
   set page(int p) {
     _page = p;
     notifyListeners();
   }
-  void increments () {
+
+  void increments() {
     this.uses += 1;
   }
 
-  void changePagaNumber (int n) {
-    this.page += n; 
+  void changePagaNumber(int n) {
+    this.page += n;
   }
 
-  void changeScore (int index, int score) {
+  void changeScore(int index, int score) {
     // this is -1 for word you for sure now
     this._dictionary[index].score = score;
+    String data = json.encode(this._dictionary);
+    this.jsonFile.writeAsString(data);
     notifyListeners();
   }
-  
 }
