@@ -5,6 +5,8 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:word_me/models/heb_word.dart';
 
+enum Filters { none, known, unknown }
+
 class WordsDictionary extends ChangeNotifier {
   List<HebWord> _dictionary;
   int _uses = 150;
@@ -12,6 +14,7 @@ class WordsDictionary extends ChangeNotifier {
   int _maxItems = 10;
   String fileName = 'track.json';
   File jsonFile;
+  Filters filters = Filters.none;
 
   WordsDictionary() {
     loadData();
@@ -52,6 +55,21 @@ class WordsDictionary extends ChangeNotifier {
   List get currentDictionary {
     int start = _page * _maxItems;
     int end = start + _maxItems;
+
+    switch (filters) {
+      case Filters.none:
+        return this._dictionary.sublist(start, end);
+      case Filters.known:
+        return this
+            ._dictionary
+            .where((element) => element.score == -1)
+            .toList();
+      case Filters.unknown:
+        return this
+            ._dictionary
+            .where((element) => element.score != -1)
+            .toList();
+    }
     return this._dictionary.sublist(start, end);
   }
 
