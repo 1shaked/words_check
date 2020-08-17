@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             PageConntroller(),
             SizedBox(
               child: WordList(),
-              height: 500,
+              height: 400,
             ),
           ],
         )),

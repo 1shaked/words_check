@@ -13,10 +13,15 @@ class WordsDictionary extends ChangeNotifier {
   int _maxItems = 10;
   String fileName = 'track.json';
   File jsonFile;
-  String filter = none_filter;
+  String _filter = none_filter;
 
   WordsDictionary() {
     loadData();
+  }
+  String get filter => _filter;
+  set filter(String name) {
+    _filter = name;
+    notifyListeners();
   }
 
   loadData() async {
@@ -55,7 +60,7 @@ class WordsDictionary extends ChangeNotifier {
     int start = _page * _maxItems;
     int end = start + _maxItems;
 
-    switch (filter) {
+    switch (_filter) {
       case none_filter:
         return this._dictionary.sublist(start, end);
       case known_filter:
