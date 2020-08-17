@@ -2,10 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 import 'package:path_provider/path_provider.dart';
+import 'package:word_me/models/filter.dart';
 import 'dart:io';
 import 'package:word_me/models/heb_word.dart';
-
-enum Filters { none, known, unknown }
 
 class WordsDictionary extends ChangeNotifier {
   List<HebWord> _dictionary;
@@ -14,7 +13,7 @@ class WordsDictionary extends ChangeNotifier {
   int _maxItems = 10;
   String fileName = 'track.json';
   File jsonFile;
-  Filters filters = Filters.none;
+  String filter = none_filter;
 
   WordsDictionary() {
     loadData();
@@ -56,18 +55,18 @@ class WordsDictionary extends ChangeNotifier {
     int start = _page * _maxItems;
     int end = start + _maxItems;
 
-    switch (filters) {
-      case Filters.none:
+    switch (filter) {
+      case none_filter:
         return this._dictionary.sublist(start, end);
-      case Filters.known:
+      case known_filter:
         return this
             ._dictionary
-            .where((element) => element.score == -1)
+            .where((element) => element.score == element.knownWordScore)
             .toList();
-      case Filters.unknown:
+      case unknown_filter:
         return this
             ._dictionary
-            .where((element) => element.score != -1)
+            .where((element) => element.score != element.knownWordScore)
             .toList();
     }
     return this._dictionary.sublist(start, end);
@@ -99,7 +98,8 @@ class WordsDictionary extends ChangeNotifier {
     this.page += n;
   }
 
-  void changeScore(int index, int score) {
+  void changeScore(HebWord word, int score) {
+    int index = this._dictionary.indexOf(word);
     // this is -1 for word you for sure now
     this._dictionary[index].score = score;
     String data = json.encode(this._dictionary);
