@@ -5,7 +5,6 @@ import 'package:word_me/models/words_dictionary.dart';
 import 'package:word_me/widget/WordUses.dart';
 import 'package:word_me/widget/translations.dart';
 
-
 class WordListItem extends StatefulWidget {
   final HebWord word;
   final int index;
@@ -17,7 +16,6 @@ class WordListItem extends StatefulWidget {
 
 class _WordListItemState extends State<WordListItem> {
   bool isOpen = false;
-  
 
   Future<void> _showMyDialog(WordsDictionary dictionary) async {
     return showDialog<void>(
@@ -39,7 +37,7 @@ class _WordListItemState extends State<WordListItem> {
               child: Text('ידעתי'),
               color: Colors.green[700],
               onPressed: () {
-                dictionary.changeScore(widget.index , -1);
+                dictionary.changeScore(widget.word, widget.word.knownWordScore);
                 print('The deatils for -- ${widget.word} -- changed');
                 Navigator.of(context).pop();
               },
@@ -57,8 +55,6 @@ class _WordListItemState extends State<WordListItem> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     WordsDictionary wordsDictionary = Provider.of<WordsDictionary>(context);
@@ -66,14 +62,18 @@ class _WordListItemState extends State<WordListItem> {
     return Container(
       child: ListTile(
         leading: const Icon(Icons.comment),
-        title: Text('${widget.word.word}'),
-        subtitle: Text(
-          isOpen ? widget.word.translation : '',
+        title: Text(
+          '${widget.word.word}',
           style: TextStyle(
-            fontSize: isOpen ? 20 : 0,
-            fontWeight: FontWeight.normal,
-          )
+              backgroundColor: widget.word.score == widget.word.knownWordScore
+                  ? Colors.green[400]
+                  : Colors.white),
         ),
+        subtitle: Text(isOpen ? widget.word.translation : '',
+            style: TextStyle(
+              fontSize: isOpen ? 20 : 0,
+              fontWeight: FontWeight.normal,
+            )),
         onTap: () {
           setState(() {
             isOpen = !isOpen;
@@ -88,4 +88,3 @@ class _WordListItemState extends State<WordListItem> {
     );
   }
 }
-

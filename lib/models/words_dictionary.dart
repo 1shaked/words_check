@@ -102,7 +102,10 @@ class WordsDictionary extends ChangeNotifier {
     int index = this._dictionary.indexOf(word);
     // this is -1 for word you for sure now
     this._dictionary[index].score = score;
-    String data = json.encode(this._dictionary);
+    String data = json.encode({
+      'dictionary': this._dictionary,
+      'uses': this._uses,
+    });
     this.jsonFile.writeAsString(data);
     notifyListeners();
   }

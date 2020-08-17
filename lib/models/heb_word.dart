@@ -29,4 +29,11 @@ class HebWord {
     }
     return textSplited;
   }
+
+  Map<String, dynamic> toJson() => {
+        'word': this.word,
+        'translation': this.translation,
+        'example': this.example,
+        'score': this.score
+      };
 }
