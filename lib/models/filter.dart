@@ -1,8 +1,3 @@
-class Filter {
-  String currentFilter;
-  String none = 'none';
-  String unknown = 'unknown';
-  String known = 'known';
-
-  Filter(this.currentFilter);
-}
+const String none_filter = 'none';
+const String unknown_filter = 'unknown';
+const String known_filter = 'known';
