@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SettingsName extends StatelessWidget {
+class SettingsWordAtDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
