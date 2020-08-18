@@ -14,24 +14,10 @@ class NavDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: Text("known words"),
+            title: Text("Settings"),
             trailing: Icon(Icons.arrow_forward),
             onTap: () {
-              Navigator.of(context).pushNamed('/known');
-            },
-          ),
-          ListTile(
-            title: Text("unknown words"),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              Navigator.of(context).pushNamed('/unknown');
-            },
-          ),
-          ListTile(
-            title: Text("all word dictionary"),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {
-              Navigator.of(context).pushNamed('/all_words');
+              Navigator.of(context).pushNamed('/settings');
             },
           ),
         ],
