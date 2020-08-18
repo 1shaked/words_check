@@ -10,9 +10,9 @@ class Uses extends StatefulWidget {
 class _UsesState extends State<Uses> {
   @override
   Widget build(BuildContext context) {
-    WordsDictionary words_dictionary = Provider.of<WordsDictionary>(context);
+    WordsDictionary wordsDictionary = Provider.of<WordsDictionary>(context);
     return Container(
-      child: Text(words_dictionary.page.toString() ??  'no page'),  
+      child: Text(wordsDictionary.page.toString() ?? 'no page'),
     );
   }
 }
