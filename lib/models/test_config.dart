@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 
-class TestConfig {
+class TestConfig extends ChangeNotifier {
   String _name = 'example';
   int _wordsAtTest = 30;
   int _wordsAtDay = 10;
@@ -26,11 +26,32 @@ class TestConfig {
   int get wordsAtTest => _wordsAtTest;
   int get wordsAtDay => _wordsAtDay;
   List<TimeOfDay> get frequency => _frequency;
+  int get numberOfTimeADays => frequency.length;
 
-  set name(value) => _name = value;
-  set wordsAtTest(value) => _wordsAtTest = value;
-  set wordsAtDay(value) => _wordsAtDay = value;
-  set frequency(value) => _frequency = value;
+  set name(value) {
+    _name = value;
+    notifyListeners();
+  }
+
+  set wordsAtTest(value) {
+    _wordsAtTest = value;
+    notifyListeners();
+  }
+
+  set wordsAtDay(value) {
+    _wordsAtDay = value;
+    notifyListeners();
+  }
+
+  set frequency(value) {
+    _frequency = value;
+    notifyListeners();
+  }
+
+  changeFrequencyAtIndex(int index, TimeOfDay value) {
+    frequency[index] = value;
+    notifyListeners();
+  }
 
   Map<String, dynamic> toJson() => {
         'name': name,
