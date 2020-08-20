@@ -48,8 +48,13 @@ class TestConfig extends ChangeNotifier {
     notifyListeners();
   }
 
-  changeFrequencyAtIndex(int index, TimeOfDay value) {
+  void changeFrequencyAtIndex(int index, TimeOfDay value) {
     frequency[index] = value;
+    notifyListeners();
+  }
+
+  void addFrequency() {
+    frequency.add(TimeOfDay.now());
     notifyListeners();
   }
 
