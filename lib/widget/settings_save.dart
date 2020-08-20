@@ -10,6 +10,6 @@ class SettingsSave extends StatelessWidget {
     return RaisedButton.icon(
         onPressed: () => testConfig.updateFileConfig(),
         icon: Icon(Icons.save),
-        label: Text(testConfig.toString()));
+        label: Text('save'));
   }
 }
