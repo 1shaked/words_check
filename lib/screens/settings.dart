@@ -5,6 +5,7 @@ import 'package:word_me/widget/nav_drawer.dart';
 import 'package:word_me/widget/seetings_word_at_day.dart';
 import 'package:word_me/widget/settings_frequency.dart';
 import 'package:word_me/widget/settings_name.dart';
+import 'package:word_me/widget/settings_save.dart';
 import 'package:word_me/widget/settings_word_at_test.dart';
 
 class Settings extends StatefulWidget {
@@ -41,6 +42,9 @@ class _SettingsState extends State<Settings> {
                 ]),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Expanded(flex: 5, child: SettingsFrequency()),
+                ]),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Expanded(flex: 5, child: SettingsSave()),
                 ]),
               ],
             ),

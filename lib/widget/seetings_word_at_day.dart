@@ -8,17 +8,23 @@ class SettingsWordAtDay extends StatelessWidget {
   Widget build(BuildContext context) {
     TestConfig testConfig = Provider.of<TestConfig>(context);
     return Container(
-      child: TextFormField(
+      child: TextField(
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
           WhitelistingTextInputFormatter.digitsOnly
         ],
         decoration:
             InputDecoration(hintText: "wordsAtDay ${testConfig.wordsAtDay}"),
-        validator: (value) {
-          return int.parse(value) < 1
-              ? 'pls enter a value bigger then 0'
-              : null;
+        onSubmitted: (String s) {
+          print(s);
+          try {
+            int wordsAtDay = int.parse(s);
+            if (wordsAtDay > 0) {
+              testConfig.wordsAtDay = wordsAtDay;
+            }
+          } catch (e) {
+            print(e.toString());
+          }
         },
       ),
     );

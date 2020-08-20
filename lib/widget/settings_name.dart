@@ -14,15 +14,15 @@ class SettingsName extends StatelessWidget {
         ),
       ),
       padding: EdgeInsets.all(16.0),
-      child: TextFormField(
+      child: TextField(
         decoration:
             InputDecoration(hintText: "Your name is ${testConfig.name}"),
         // The validator receives the text that the user has entered.
-        validator: (value) {
-          if (value.isEmpty) {
-            return 'Please enter some text';
+        onSubmitted: (String name) {
+          print(name);
+          if (name.isNotEmpty) {
+            testConfig.name = name;
           }
-          return null;
         },
       ),
     );

@@ -8,19 +8,24 @@ class SettingsWordAtTest extends StatelessWidget {
   Widget build(BuildContext context) {
     TestConfig testConfig = Provider.of<TestConfig>(context);
     return Container(
-      child: TextFormField(
-        keyboardType: TextInputType.number,
-        inputFormatters: <TextInputFormatter>[
-          WhitelistingTextInputFormatter.digitsOnly
-        ],
-        decoration:
-            InputDecoration(hintText: "wordsAtTest ${testConfig.wordsAtTest}"),
-        validator: (value) {
-          return int.parse(value) < 1
-              ? 'pls enter a value bigger then 0'
-              : null;
-        },
-      ),
+      child: TextField(
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            WhitelistingTextInputFormatter.digitsOnly
+          ],
+          decoration: InputDecoration(
+              hintText: "wordsAtTest ${testConfig.wordsAtTest}"),
+          onSubmitted: (String wordsAtTest) {
+            print(wordsAtTest);
+            try {
+              int numWordsAtTest = int.parse(wordsAtTest);
+              if (numWordsAtTest > 0) {
+                testConfig.wordsAtDay = numWordsAtTest;
+              }
+            } catch (e) {
+              print(e.toString());
+            }
+          }),
     );
   }
 }

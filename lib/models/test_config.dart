@@ -11,15 +11,40 @@ class TestConfig extends ChangeNotifier {
   String configFileName = 'config.json';
   File configFile;
 
-  TestConfig() {}
+  TestConfig() {
+    onCreated();
+  }
 
-  void updateFileConfig() async {
+  void onCreated() async {
     Directory directory = await getApplicationDocumentsDirectory();
     this.configFile = new File(directory.path + "/" + this.configFileName);
-    bool fileExists = this.configFile.existsSync();
-    if (!fileExists) {
-      this.configFile.writeAsString(json.encode(this.toJson()));
+
+    if (this.configFile.existsSync()) {
+      loadData();
     }
+  }
+
+  void updateFileConfig() async {
+    Map<String, dynamic> res = this.toJson();
+    this.configFile.writeAsString(json.encode(res));
+  }
+
+  void loadData() async {
+    String data = this.configFile.readAsStringSync();
+    Map<String, dynamic> jsonData = json.decode(data);
+    this._frequency = jsonData['frequency'].map<TimeOfDay>((e) {
+      List<String> timeList = e.split(':');
+      int hour = int.parse(timeList[0]);
+      int minute = int.parse(timeList[1]);
+      return TimeOfDay(hour: hour, minute: minute);
+    }).toList();
+
+    this.wordsAtTest = jsonData['wordsAtTest'];
+    this.wordsAtDay = jsonData['wordsAtDay'];
+    this.name = jsonData['name'];
+
+    print(jsonData);
+    print(this.toString());
   }
 
   String get name => _name;
@@ -61,12 +86,12 @@ class TestConfig extends ChangeNotifier {
   Map<String, dynamic> toJson() => {
         'name': name,
         'wordsAtTest': wordsAtTest,
-        'frequency': frequency,
+        'frequency': frequency.map((e) => '${e.hour}:${e.minute}').toList(),
         'wordsAtDay': wordsAtDay
       };
   @override
   String toString() {
-    return 'name {name} and the frequency is {frequency}.' +
-        ' and you are going to test on {wordsAtTest} every day';
+    return 'name ${this.name} and the frequency is ${this.frequency}.' +
+        ' and you are going to test on ${this.wordsAtTest} every day';
   }
 }
