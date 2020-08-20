@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:word_me/models/test_config.dart';
+import 'package:flutter/services.dart';
 
 class SettingsWordAtDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    TestConfig testConfig = Provider.of<TestConfig>(context);
     return Container(
-      child: Text('WordAtDay'),
+      child: TextFormField(
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+        decoration:
+            InputDecoration(hintText: "wordsAtDay ${testConfig.wordsAtDay}"),
+        validator: (value) {
+          return int.parse(value) < 1
+              ? 'pls enter a value bigger then 0'
+              : null;
+        },
+      ),
     );
   }
 }
