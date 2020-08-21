@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:word_me/models/route_generator.dart';
-import 'package:word_me/screens/all_words.dart';
-import 'package:word_me/screens/home.dart';
-import 'package:word_me/screens/known.dart';
-import 'package:word_me/screens/unknown.dart';
 
 void main() {
   runApp(MyApp());

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:word_me/screens/all_words.dart';
 import 'package:word_me/screens/home.dart';
-import 'package:word_me/screens/known.dart';
 import 'package:word_me/screens/settings.dart';
-import 'package:word_me/screens/unknown.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -13,12 +10,6 @@ class RouteGenerator {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
-      case '/all_words':
-        return MaterialPageRoute(builder: (_) => AllWords());
-      case '/known':
-        return MaterialPageRoute(builder: (_) => KnownWords());
-      case '/unknown':
-        return MaterialPageRoute(builder: (_) => UnknownWords());
       case '/settings':
         return MaterialPageRoute(builder: (_) => Settings());
       default:
