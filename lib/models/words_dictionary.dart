@@ -67,22 +67,16 @@ class WordsDictionary extends ChangeNotifier {
         return this
             ._dictionary
             .where((element) => element.score == element.knownWordScore)
-            .toList();
+            .toList()
+            .sublist(start, end);
       case unknown_filter:
         return this
             ._dictionary
             .where((element) => element.score != element.knownWordScore)
-            .toList();
+            .toList()
+            .sublist(start, end);
     }
     return this._dictionary.sublist(start, end);
-  }
-
-  List get unknownWords {
-    return this._dictionary.where((element) => element.score != -1).toList();
-  }
-
-  List get knownWords {
-    return this._dictionary.where((element) => element.score == -1).toList();
   }
 
   set uses(int n) {
@@ -113,5 +107,13 @@ class WordsDictionary extends ChangeNotifier {
     });
     this.jsonFile.writeAsString(data);
     notifyListeners();
+  }
+
+  List<HebWord> wordForTest(int numberOfWords) {
+    List<HebWord> testWords = dictionary
+        .where((element) => element.knownWordScore != element.score)
+        .toList();
+    testWords.sort((a, b) => a.score.compareTo(b.score));
+    return testWords.sublist(0, numberOfWords);
   }
 }
