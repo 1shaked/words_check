@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:word_me/screens/home.dart';
 import 'package:word_me/screens/settings.dart';
+import 'package:word_me/screens/word_test.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -12,6 +13,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/settings':
         return MaterialPageRoute(builder: (_) => Settings());
+      case '/word_test':
+        return MaterialPageRoute(builder: (_) => WordTest());
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute();
