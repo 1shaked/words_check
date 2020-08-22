@@ -20,6 +20,13 @@ class NavDrawer extends StatelessWidget {
               Navigator.of(context).pushNamed('/settings');
             },
           ),
+          ListTile(
+            title: Text("Test my Words!"),
+            trailing: Icon(Icons.arrow_forward),
+            onTap: () {
+              Navigator.of(context).pushNamed('/word_test');
+            },
+          ),
         ],
       ),
     );
