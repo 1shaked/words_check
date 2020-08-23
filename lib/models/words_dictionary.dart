@@ -42,12 +42,10 @@ class WordsDictionary extends ChangeNotifier {
     var jsonResult = json.decode(data);
     var res = jsonResult['dictionary'];
     for (final wordValue in res) {
-      print(wordValue['word']);
       HebWord word = HebWord(wordValue['word'], wordValue['translation'],
           wordValue['example'], wordValue['score']);
       this._dictionary.add(word);
     }
-    print(dictionary);
     notifyListeners();
   }
 
