@@ -42,9 +42,6 @@ class TestConfig extends ChangeNotifier {
     this.wordsAtTest = jsonData['wordsAtTest'];
     this.wordsAtDay = jsonData['wordsAtDay'];
     this.name = jsonData['name'];
-
-    print(jsonData);
-    print(this.toString());
   }
 
   String get name => _name;
