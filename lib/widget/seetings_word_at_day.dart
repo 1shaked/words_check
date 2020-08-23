@@ -16,7 +16,6 @@ class SettingsWordAtDay extends StatelessWidget {
         decoration:
             InputDecoration(hintText: "wordsAtDay ${testConfig.wordsAtDay}"),
         onSubmitted: (String s) {
-          print(s);
           try {
             int wordsAtDay = int.parse(s);
             if (wordsAtDay > 0) {
