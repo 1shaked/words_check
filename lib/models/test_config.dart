@@ -1,37 +1,19 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'dart:convert';
+import 'package:word_me/models/file_maneger.dart';
 
 class TestConfig extends ChangeNotifier {
   String _name = 'example';
   int _wordsAtTest = 30;
   int _wordsAtDay = 10;
   List<TimeOfDay> _frequency = [TimeOfDay(hour: 15, minute: 0)];
-  String configFileName = 'config.json';
-  File configFile;
+  FileManager fileManeger = FileManager();
 
   TestConfig() {
     onCreated();
   }
 
   void onCreated() async {
-    Directory directory = await getApplicationDocumentsDirectory();
-    this.configFile = new File(directory.path + "/" + this.configFileName);
-
-    if (this.configFile.existsSync()) {
-      loadData();
-    }
-  }
-
-  void updateFileConfig() async {
-    Map<String, dynamic> res = this.toJson();
-    this.configFile.writeAsString(json.encode(res));
-  }
-
-  void loadData() async {
-    String data = this.configFile.readAsStringSync();
-    Map<String, dynamic> jsonData = json.decode(data);
+    Map<String, dynamic> jsonData = await fileManeger.loadConfigFile(this);
     this._frequency = jsonData['frequency'].map<TimeOfDay>((e) {
       List<String> timeList = e.split(':');
       int hour = int.parse(timeList[0]);
@@ -42,6 +24,10 @@ class TestConfig extends ChangeNotifier {
     this.wordsAtTest = jsonData['wordsAtTest'];
     this.wordsAtDay = jsonData['wordsAtDay'];
     this.name = jsonData['name'];
+  }
+
+  void updateFileConfig() async {
+    fileManeger.updateFileConfig(this);
   }
 
   String get name => _name;
