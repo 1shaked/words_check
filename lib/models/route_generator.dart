@@ -16,7 +16,7 @@ class RouteGenerator {
       case '/word_test':
         return MaterialPageRoute(builder: (_) => WordTest());
       default:
-        // If there is no such named route in the switch statement, e.g. /third
+        // If there is no such named route in the switch statement
         return _errorRoute();
     }
   }

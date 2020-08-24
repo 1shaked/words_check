@@ -18,7 +18,6 @@ class HebWord {
     if (!text.contains('.')) {
       return [text];
     }
-    // return ['text' , 't2'];
     List<String> textSplited = text.split('.');
     for (int i = 0; i < textSplited.length; i++) {
       if (textSplited[i].length == 0) continue;
