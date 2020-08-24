@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
-import 'package:path_provider/path_provider.dart';
+import 'package:word_me/models/file_maneger.dart';
 import 'package:word_me/models/filter.dart';
-import 'dart:io';
+
 import 'package:word_me/models/heb_word.dart';
 
 class WordsDictionary extends ChangeNotifier {
@@ -11,12 +10,11 @@ class WordsDictionary extends ChangeNotifier {
   int _uses = 150;
   int _page = 0;
   int _maxItems = 10;
-  String fileName = 'track.json';
-  File jsonFile;
   String _filter = none_filter;
+  FileManager fileManeger = FileManager();
 
   WordsDictionary() {
-    loadData();
+    loadDictionary();
   }
   String get filter => _filter;
   set filter(String name) {
@@ -24,22 +22,9 @@ class WordsDictionary extends ChangeNotifier {
     notifyListeners();
   }
 
-  loadData() async {
-    Directory directory = await getApplicationDocumentsDirectory();
-    this.jsonFile = new File(directory.path + "/" + this.fileName);
-    bool fileExists = jsonFile.existsSync();
-    String data = fileExists
-        ? await jsonFile.readAsString()
-        : await rootBundle.loadString('assets/heb_list.json');
-    loadDictionary(data);
-    if (!fileExists) {
-      jsonFile.writeAsString(data);
-    }
-  }
-
-  loadDictionary(String data) async {
+  loadDictionary() async {
+    Map<String, dynamic> jsonResult = await fileManeger.loadDataDictinary();
     this._dictionary ??= [];
-    var jsonResult = json.decode(data);
     var res = jsonResult['dictionary'];
     for (final wordValue in res) {
       HebWord word = HebWord(wordValue['word'], wordValue['translation'],
@@ -103,7 +88,7 @@ class WordsDictionary extends ChangeNotifier {
       'dictionary': this._dictionary,
       'uses': this._uses,
     });
-    this.jsonFile.writeAsString(data);
+    fileManeger.updateDataDictionary(data);
     notifyListeners();
   }
 
