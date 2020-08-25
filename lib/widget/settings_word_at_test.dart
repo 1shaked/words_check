@@ -20,7 +20,7 @@ class SettingsWordAtTest extends StatelessWidget {
             try {
               int numWordsAtTest = int.parse(wordsAtTest);
               if (numWordsAtTest > 0) {
-                testConfig.wordsAtDay = numWordsAtTest;
+                testConfig.wordsAtTest = numWordsAtTest;
               }
             } catch (e) {
               print(e.toString());
