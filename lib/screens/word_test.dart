@@ -18,6 +18,7 @@ class _WordTestState extends State<WordTest> {
       providers: [
         ChangeNotifierProvider(create: (context) => WordsDictionary()),
         ChangeNotifierProvider(create: (context) => TestConfig()),
+        ChangeNotifierProvider(create: (context) => TestManeger())
       ],
       child: Scaffold(
           appBar: AppBar(title: Text('Test ME')),
