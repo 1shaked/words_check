@@ -23,6 +23,13 @@ class TestManeger extends ChangeNotifier {
     notifyListeners();
   }
 
+  void replay() {
+    this.testIndex = 0;
+    onCreated();
+  }
+
+  double get testPrecent => testIndex / maxIndex * 100;
+
   void initTestWords(List<dynamic> dictionary, int listLength) {
     List<HebWord> hebWordList = [];
     for (final wordValue in dictionary) {

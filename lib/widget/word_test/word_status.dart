@@ -14,12 +14,7 @@ class WordStatus extends StatelessWidget {
           ? knowWord(testManeger, wordsDictionary)
           : testManeger.isAnswerdCurrentWord
               ? unknowWord(testManeger)
-              : Container(
-                  child: Card(
-                    child: Text(
-                        'You did ${testManeger.testIndex} out of ${testManeger.maxIndex}'),
-                  ),
-                ),
+              : Container(),
     );
   }
 

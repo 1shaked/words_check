@@ -5,6 +5,7 @@ import 'package:word_me/widget/word_test/do_know.dart';
 import 'package:word_me/widget/word_test/get_uses.dart';
 import 'package:word_me/widget/word_test/next_question.dart';
 import 'package:word_me/widget/word_test/show_answer.dart';
+import 'package:word_me/widget/word_test/test_words_index.dart';
 import 'package:word_me/widget/word_test/word_card.dart';
 import 'package:word_me/widget/word_test/word_status.dart';
 import 'package:provider/provider.dart';
@@ -35,15 +36,23 @@ class _WordTestBodyState extends State<WordTestBody> {
                           Text('YOU ARE DONE!',
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontSize: 35, fontWeight: FontWeight.bold))
-                        ] // TODO: add a done page
+                                  fontSize: 35, fontWeight: FontWeight.bold)),
+                          FlatButton.icon(
+                              color: Colors.greenAccent,
+                              onPressed: () {
+                                testManeger.replay();
+                              },
+                              icon: Icon(Icons.replay),
+                              label: Text('REPLAY'))
+                        ]
                       : [
                           WordStatus(),
                           WordCard(),
                           DoYouKnow(),
                           GetUses(),
                           ShowAnswer(),
-                          NextQuestion()
+                          NextQuestion(),
+                          TestWordsIndex()
                         ],
                 ))
           ]),
