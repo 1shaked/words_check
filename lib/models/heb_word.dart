@@ -4,6 +4,7 @@ class HebWord {
   String example;
   int score;
   int knownWordScore = -1;
+  int unknownWordScore = 0;
   HebWord(this.word, this.translation, this.example, this.score);
 
   List<String> get translationsList => splitText(translation);
