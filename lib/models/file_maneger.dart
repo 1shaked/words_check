@@ -10,7 +10,7 @@ class FileManager {
   String fileName = 'track.json';
   File jsonFile;
 
-  Future<Map<String, dynamic>> loadConfigFile(TestConfig testConfig) async {
+  Future<Map<String, dynamic>> loadConfigFile() async {
     Directory directory = await getApplicationDocumentsDirectory();
     this.configFile = new File(directory.path + "/" + this.configFileName);
 
@@ -19,6 +19,7 @@ class FileManager {
       Map<String, dynamic> jsonData = json.decode(data);
       return jsonData;
     } else {
+      TestConfig testConfig = TestConfig();
       updateFileConfig(testConfig);
       return testConfig.toJson();
     }
@@ -42,5 +43,6 @@ class FileManager {
     return json.decode(data);
   }
 
-  void updateDataDictionary(String data) => this.jsonFile.writeAsString(data);
+  void updateDataDictionary(String data) =>
+      this.jsonFile.writeAsStringSync(data);
 }
