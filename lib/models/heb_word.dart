@@ -1,3 +1,5 @@
+import 'package:quiver/core.dart';
+
 class HebWord {
   String word;
   String translation;
@@ -36,4 +38,12 @@ class HebWord {
         'example': this.example,
         'score': this.score
       };
+
+  bool operator ==(o) =>
+      o is HebWord &&
+      o.word == word &&
+      o.translation == translation &&
+      o.example == example;
+  int get hashCode =>
+      hash3(word.hashCode, translation.hashCode, example.hashCode);
 }
