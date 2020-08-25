@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:word_me/const/test_conditions.dart';
 import 'package:word_me/models/test_maneger.dart';
 
 class GetUses extends StatefulWidget {
@@ -14,16 +15,20 @@ class _GetUsesState extends State<GetUses> {
     TestManeger testManeger = Provider.of<TestManeger>(context);
     return Container(
         margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: showUses(testManeger));
+        child: testManeger.isHintCurrentWord
+            ? showUses(testManeger)
+            : needHint(testManeger));
   }
 
-  Widget needHint() {
+  Widget needHint(TestManeger testManeger) {
     return Container(
       child: Container(
         child: RaisedButton.icon(
             color: Colors.blueAccent,
             padding: EdgeInsets.all(15),
-            onPressed: () => print('need help'),
+            onPressed: () {
+              testManeger.testResultsAppend(test_hint);
+            },
             icon: Icon(Icons.help_outline, color: Colors.white),
             label: Text('Get Help!',
                 style: TextStyle(color: Colors.white, fontSize: 20))),
@@ -39,9 +44,9 @@ class _GetUsesState extends State<GetUses> {
           width: double.infinity,
           height: 60,
           child: ListView.builder(
-              itemCount: maneger.currentWord.translationsList.length,
+              itemCount: maneger.currentWord.exampleList.length,
               itemBuilder: (_, index) => Text(
-                  maneger.currentWord.translationsList[index],
+                  maneger.currentWord.exampleList[index],
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
         ));
