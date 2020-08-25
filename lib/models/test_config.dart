@@ -13,7 +13,7 @@ class TestConfig extends ChangeNotifier {
   }
 
   void onCreated() async {
-    Map<String, dynamic> jsonData = await fileManeger.loadConfigFile(this);
+    Map<String, dynamic> jsonData = await fileManeger.loadConfigFile();
     this._frequency = jsonData['frequency'].map<TimeOfDay>((e) {
       List<String> timeList = e.split(':');
       int hour = int.parse(timeList[0]);
