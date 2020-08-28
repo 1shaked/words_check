@@ -16,7 +16,7 @@ class TestWordsIndex extends StatelessWidget {
                   'You did ${testManeger.testIndex} out of ${testManeger.maxIndex}',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 25)),
-              Text('${testManeger.testPrecent}%',
+              Text('${testManeger.testPrecent.toStringAsFixed(2)}%',
                   textAlign: TextAlign.center, style: TextStyle(fontSize: 25))
             ],
           )),
