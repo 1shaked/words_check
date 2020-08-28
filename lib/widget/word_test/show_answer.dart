@@ -6,7 +6,9 @@ class ShowAnswer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TestManeger testManeger = Provider.of<TestManeger>(context);
-    return Container(
+    return SizedBox(
+      width: double.infinity,
+      height: 100,
       child: testManeger.showTranslation
           ? showAnswer(testManeger)
           : showUnknownBox(),
