@@ -13,7 +13,7 @@ class WordStatus extends StatelessWidget {
       child: testManeger.isKnowCurrentWord
           ? knowWord(testManeger, wordsDictionary)
           : testManeger.isAnswerdCurrentWord
-              ? unknowWord(testManeger)
+              ? unknowWord(testManeger, wordsDictionary)
               : Container(),
     );
   }
@@ -30,6 +30,9 @@ class WordStatus extends StatelessWidget {
                   color: Colors.green,
                   child: FlatButton.icon(
                       onPressed: () {
+                        if (testManeger.maxIndex == testManeger.testIndex + 1) {
+                          wordsDictionary.uses += 1;
+                        }
                         testManeger.incrementsTestIndex();
                       },
                       icon: Icon(Icons.thumb_up, color: Colors.white),
@@ -45,6 +48,9 @@ class WordStatus extends StatelessWidget {
                   child: FlatButton.icon(
                       splashColor: Colors.green,
                       onPressed: () {
+                        if (testManeger.maxIndex == testManeger.testIndex + 1) {
+                          wordsDictionary.uses += 1;
+                        }
                         testManeger.testResultsAppend(test_unknow);
                         if (testManeger.currentWord.score - 1 ==
                             testManeger.currentWord.knownWordScore) {
@@ -71,10 +77,15 @@ class WordStatus extends StatelessWidget {
     );
   }
 
-  Widget unknowWord(TestManeger testManeger) {
+  Widget unknowWord(TestManeger testManeger, WordsDictionary wordsDictionary) {
     return Container(
       child: FlatButton.icon(
-          onPressed: () => testManeger.incrementsTestIndex(),
+          onPressed: () {
+            if (testManeger.maxIndex == testManeger.testIndex) {
+              wordsDictionary.uses += 1;
+            }
+            testManeger.incrementsTestIndex();
+          },
           icon: Icon(Icons.arrow_forward),
           label: Text('Go To The Next Page')),
     );
