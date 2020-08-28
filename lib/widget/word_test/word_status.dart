@@ -32,6 +32,7 @@ class WordStatus extends StatelessWidget {
                       onPressed: () {
                         if (testManeger.maxIndex == testManeger.testIndex + 1) {
                           wordsDictionary.uses += 1;
+                          wordsDictionary.updateFile();
                         }
                         testManeger.incrementsTestIndex();
                       },

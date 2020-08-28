@@ -96,13 +96,17 @@ class WordsDictionary extends ChangeNotifier {
   void changeScore(HebWord word, int score) {
     int index = this._dictionary.indexOf(word);
     // this is -1 for word you for sure now
-    this._dictionary[index].score = score;
+    this.dictionary[index].score = score;
+    updateFile();
+    notifyListeners();
+  }
+
+  void updateFile() {
     String data = json.encode({
-      'dictionary': this._dictionary,
+      'dictionary': this.dictionary,
       'uses': this.uses,
     });
     fileManeger.updateDataDictionary(data);
-    notifyListeners();
   }
 
   int get wordTested {
