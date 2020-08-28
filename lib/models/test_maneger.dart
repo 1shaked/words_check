@@ -97,5 +97,5 @@ class TestManeger extends ChangeNotifier {
 
   int get maxIndex => testWords.length;
   HebWord get currentWord => testWords[testIndex];
-  bool get isDone => testIndex + 1 == maxIndex;
+  bool get isDone => testIndex == maxIndex;
 }
