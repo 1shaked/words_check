@@ -37,8 +37,10 @@ class _WordListItemState extends State<WordListItem> {
               child: Text('ידעתי'),
               color: Colors.green[700],
               onPressed: () {
+                setState(() {
+                  isOpen = false;
+                });
                 dictionary.changeScore(widget.word, widget.word.knownWordScore);
-                print('The deatils for -- ${widget.word} -- changed');
                 Navigator.of(context).pop();
               },
             ),
@@ -60,18 +62,26 @@ class _WordListItemState extends State<WordListItem> {
     WordsDictionary wordsDictionary = Provider.of<WordsDictionary>(context);
 
     return Container(
+      color: widget.word.score == widget.word.knownWordScore
+          ? Colors.green[400]
+          : widget.word.score == widget.word.unknownWordScore
+              ? Colors.redAccent
+              : Colors.white,
       child: ListTile(
         leading: const Icon(Icons.comment),
         title: Text(
           '${widget.word.word}',
-          style: TextStyle(
-              backgroundColor: widget.word.score == widget.word.knownWordScore
-                  ? Colors.green[400]
-                  : Colors.white),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
         ),
-        subtitle: Text(isOpen ? widget.word.translation : '',
+        subtitle: Text(
+            isOpen
+                ? widget.word.translation
+                : widget.word.score == widget.word.knownWordScore
+                    ? ''
+                    : widget.word.score.toString(),
             style: TextStyle(
-              fontSize: isOpen ? 20 : 0,
+              fontSize: isOpen ? 20 : 15,
               fontWeight: FontWeight.normal,
             )),
         onTap: () {
