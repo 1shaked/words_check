@@ -8,28 +8,28 @@ class NavDrawer extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Text("Home page"),
-            trailing: Icon(Icons.arrow_forward),
+            trailing: Icon(Icons.home),
             onTap: () {
               Navigator.of(context).pushNamed('/');
             },
           ),
           ListTile(
             title: Text("Settings"),
-            trailing: Icon(Icons.arrow_forward),
+            trailing: Icon(Icons.settings),
             onTap: () {
               Navigator.of(context).pushNamed('/settings');
             },
           ),
           ListTile(
             title: Text("Test my Words!"),
-            trailing: Icon(Icons.arrow_forward),
+            trailing: Icon(Icons.translate),
             onTap: () {
               Navigator.of(context).pushNamed('/word_test');
             },
           ),
           ListTile(
             title: Text("Analistics"),
-            trailing: Icon(Icons.arrow_forward),
+            trailing: Icon(Icons.multiline_chart),
             onTap: () {
               Navigator.of(context).pushNamed('/analytics');
             },
