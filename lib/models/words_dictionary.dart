@@ -7,11 +7,18 @@ import 'package:word_me/models/heb_word.dart';
 
 class WordsDictionary extends ChangeNotifier {
   List<HebWord> _dictionary;
-  int _uses = 150;
+  int _uses = 0;
   int _page = 0;
   int _maxItems = 10;
   String _filter = none_filter;
   FileManager fileManeger = FileManager();
+
+  bool _isDoneLoading = false;
+  bool get isDoneLoading => _isDoneLoading;
+  set isDoneLoading(bool v) {
+    _isDoneLoading = v;
+    notifyListeners();
+  }
 
   WordsDictionary() {
     loadDictionary();
@@ -26,15 +33,21 @@ class WordsDictionary extends ChangeNotifier {
     Map<String, dynamic> jsonResult = await fileManeger.loadDataDictinary();
     this._dictionary ??= [];
     var res = jsonResult['dictionary'];
+    this.uses = jsonResult['uses'];
     for (final wordValue in res) {
       HebWord word = HebWord(wordValue['word'], wordValue['translation'],
           wordValue['example'], wordValue['score']);
       this._dictionary.add(word);
     }
+    isDoneLoading = true;
     notifyListeners();
   }
 
-  int get maxPage => (_dictionary.length / _maxItems).round();
+  int get maxPage {
+    List<dynamic> currentList = dictionary ?? [];
+    return (currentList.length / _maxItems).round();
+  }
+
   int get uses => _uses;
   int get page => _page;
   List get dictionary => _dictionary;
@@ -86,17 +99,53 @@ class WordsDictionary extends ChangeNotifier {
     this._dictionary[index].score = score;
     String data = json.encode({
       'dictionary': this._dictionary,
-      'uses': this._uses,
+      'uses': this.uses,
     });
     fileManeger.updateDataDictionary(data);
     notifyListeners();
   }
 
-  List<HebWord> wordForTest(int numberOfWords) {
-    List<HebWord> testWords = dictionary
-        .where((element) => element.knownWordScore != element.score)
-        .toList();
-    testWords.sort((a, b) => a.score.compareTo(b.score));
-    return testWords.sublist(0, numberOfWords);
+  int get wordTested {
+    List<HebWord> currentDictionary = this.dictionary ?? [];
+    if (currentDictionary.isEmpty) {
+      return 0;
+    }
+    return currentDictionary
+        .where((element) =>
+            element.score != element.knownWordScore &&
+            element.score != element.unknownWordScore)
+        .toList()
+        .length;
+  }
+
+  int get wordKnown {
+    List<HebWord> currentDictionary = this.dictionary ?? [];
+    if (currentDictionary.isEmpty) {
+      return 0;
+    }
+    return currentDictionary
+        .where((element) => element.score == element.knownWordScore)
+        .toList()
+        .length;
+  }
+
+  double get precentTested {
+    List<HebWord> currentDictionary = this.dictionary ?? [];
+    if (currentDictionary.isEmpty) {
+      return 0;
+    }
+    return this.wordTested / currentDictionary.length;
+  }
+
+  double get precentKnown {
+    List<HebWord> currentDictionary = this.dictionary ?? [];
+    if (currentDictionary.isEmpty) {
+      return 0;
+    }
+    return currentDictionary
+            .where((element) => element.score == element.knownWordScore)
+            .toList()
+            .length /
+        currentDictionary.length;
   }
 }
